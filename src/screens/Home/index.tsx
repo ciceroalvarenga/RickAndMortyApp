@@ -84,7 +84,7 @@ export function Home() {
                   key={item.id}
                   image={item.image}
                   name={item.name}
-                  origin={item.origin}
+                  location={item.location}
                   species={item.species}
                   status={item.status}
                   character={item}

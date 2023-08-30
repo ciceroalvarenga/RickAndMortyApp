@@ -14,7 +14,7 @@ export function TabRoutes() {
   const theme = useTheme();
   return (
     <Navigator
-      initialRouteName="Home"
+      // initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: theme.colors.saved,
@@ -27,7 +27,7 @@ export function TabRoutes() {
         },
       }}>
       <Screen
-        name="Home"
+        name="Inicio"
         component={Home}
         options={{
           tabBarIcon: ({size, color}) => (
@@ -36,7 +36,7 @@ export function TabRoutes() {
         }}
       />
       <Screen
-        name="Favorites"
+        name="Favoritos"
         component={FavoriteCharacter}
         options={{
           tabBarIcon: ({size, color}) => (

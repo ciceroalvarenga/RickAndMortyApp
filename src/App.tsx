@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {ThemeProvider} from 'styled-components';
 
 import {Routes} from './routes';
-import store from '@store/store';
+import {store} from '@store/store';
 import theme from '@global/styles/theme';
 
 function App() {

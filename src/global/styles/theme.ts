@@ -6,6 +6,8 @@ export default {
     unknown: '#9e9e9e',
     Dead: '#f22222',
     saved: '#EF5F53',
+    lightGrey: '#d9d8d8',
+    orange: '#ffc67e',
   },
 
   textColor: {

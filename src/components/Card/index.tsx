@@ -5,9 +5,7 @@ import {Icon} from '@components/Icon';
 import Arrow from '@assets/arrow.svg';
 import SaveOutline from '@assets/saveOutline.svg';
 import Saved from '@assets/saved.svg';
-import {useSelector, useDispatch} from 'react-redux';
-import {addToFavorite, removeFromFavorite} from '@store/favoriteSlice';
-import {RootState} from '@store/store';
+import {removeFromFavorite} from '@store/favoriteSlice';
 
 import {
   Container,
@@ -25,13 +23,21 @@ import {
   ButtonSave,
 } from './styles';
 import {CharacterDetailProps} from 'interfaces';
+import {useAppDispatch, useAppSelector} from '@store/hooks';
+import {selectCharactersFavorite} from '@store/favorites/favorites.selectors';
+import {
+  setAddToFavorite,
+  setRemoveFromFavorite,
+} from '@store/favorites/favorites.actions';
+import {useNavigation} from '@react-navigation/native';
+import {setAddCharacter} from '@store/character/character.actions';
 
 interface PropsCard {
   name: string;
   status: string;
   species: string;
   gender?: string;
-  origin: {
+  location: {
     name: string;
   };
   image: string;
@@ -42,31 +48,37 @@ export function Card({
   name,
   status,
   species,
-  origin,
+  location,
   image,
   character,
 }: PropsCard) {
-  const favorites = useSelector(
-    (state: RootState) => state.charactersFavorites,
-  );
-  const dispatch = useDispatch();
+  const favorites = useAppSelector(selectCharactersFavorite);
+
+  const navigation = useNavigation();
+
+  const dispatch = useAppDispatch();
 
   const handleAddToFavorite = useCallback(
     async (characters: CharacterDetailProps) => {
-      const charactersFound = favorites.find(
+      const charactersFound = favorites?.find(
         favorite => favorite.id === characters.id,
       );
 
       if (!charactersFound) {
-        await dispatch(addToFavorite(characters));
+        dispatch(setAddToFavorite([characters]));
       } else {
-        await dispatch(removeFromFavorite(characters.id));
+        dispatch(setRemoveFromFavorite(characters.id));
       }
     },
     [dispatch, favorites],
   );
 
-  const checked = favorites.find(favorite => favorite.id === character.id);
+  const checked = favorites?.find(favorite => favorite.id === character.id);
+
+  function handleAboutCharacter() {
+    navigation.navigate('AboutCharacter');
+    dispatch(setAddCharacter(character));
+  }
 
   return (
     <Container>
@@ -85,9 +97,9 @@ export function Card({
           </StatusText>
         </StatusContainer>
         <DescriptionTitle>Last known location:</DescriptionTitle>
-        <Description>{origin ? origin.name : ''}</Description>
-        <ContainerFooter>
-          <Rodape>Read more</Rodape>
+        <Description>{location ? location.name : ''}</Description>
+        <ContainerFooter onPress={handleAboutCharacter}>
+          <Rodape>Saiba mais</Rodape>
           <Icon>
             <Arrow />
           </Icon>

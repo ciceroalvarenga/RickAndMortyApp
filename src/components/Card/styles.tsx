@@ -10,10 +10,13 @@ export const Container = styled.View`
   background-color: ${({theme}) => theme.colors.cardBackground};
   flex-direction: row;
   margin-bottom: 15px;
+  border-radius: 15px;
 `;
 
 export const ImageCharacter = styled.Image`
   width: 120px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 `;
 
 export const ContainerContent = styled.View`
@@ -46,7 +49,7 @@ export const StatusText = styled.Text`
   font-weight: 700;
 `;
 
-export const ContainerFooter = styled.View`
+export const ContainerFooter = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   margin-top: 10px;

@@ -5,13 +5,11 @@ import {Card} from '@components/Card';
 
 import Splash from '@assets/splash.png';
 import {Container, ImageBackground, Title} from './styles';
-import {useSelector} from 'react-redux';
-import {RootState} from '@store/store';
+import {useAppSelector} from '@store/hooks';
+import {selectCharactersFavorite} from '@store/favorites/favorites.selectors';
 
 export function FavoriteCharacter() {
-  const favorites = useSelector(
-    (state: RootState) => state.charactersFavorites,
-  );
+  const favorites = useAppSelector(selectCharactersFavorite);
 
   return (
     <Container>
